@@ -4,7 +4,29 @@
 //     SFDX: Execute Anonymous Apex with Currently Selected Text
 // You can also execute the entire file by running the command:
 //     SFDX: Execute Anonymous Apex with Editor Contents
+String result = JSONPlaceholderExercise.getPostById(1);
+System.debug(JSON.serializePretty(JSON.deserializeUntyped(result)));
 
-string tempvar = 'Enter_your_name_here';
-System.debug('Hello World!');
-System.debug('My name is ' + tempvar);
+
+String createResult = JSONPlaceholderExercise.createPost('My Test Title', 'My test body content', 1);
+System.debug(JSON.serializePretty(JSON.deserializeUntyped(createResult)));
+
+
+String updateResult = JSONPlaceholderExercise.updatePost(1, 'Updated Title', 'Updated body content', 1);
+System.debug(JSON.serializePretty(JSON.deserializeUntyped(updateResult)));
+
+String patchResult = JSONPlaceholderExercise.patchPostTitle(1, 'Patched Title');
+System.debug(JSON.serializePretty(JSON.deserializeUntyped(patchResult)));
+
+Integer statusCode = JSONPlaceholderExercise.deletePost(1);
+System.debug('Delete status code: ' + statusCode);
+
+List<JSONPlaceholderExercise.PostRequest> posts = new List<JSONPlaceholderExercise.PostRequest>{
+    new JSONPlaceholderExercise.PostRequest('Post One', 'Body of post one', 1),
+    new JSONPlaceholderExercise.PostRequest('Post Two', 'Body of post two', 2),
+    new JSONPlaceholderExercise.PostRequest('Post Three', 'Body of post three', 3)
+};
+List<String> createPostsResult = JSONPlaceholderExercise.createPosts(posts);
+for (String res : createPostsResult) {
+    System.debug(JSON.serializePretty(JSON.deserializeUntyped(res)));
+}
